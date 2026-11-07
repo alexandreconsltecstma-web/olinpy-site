@@ -1,0 +1,24 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conexão com o TikTok - Olinpy</title><link rel="stylesheet" href="estilo.css">
+<style>code{display:block;background:#1d1930;padding:12px;border-radius:8px;word-break:break-all;color:#fff}button{margin-top:12px;padding:10px 16px;border:0;border-radius:8px;background:var(--accent);font-weight:700;cursor:pointer}</style>
+</head><body><main>
+<h1 id="titulo">Conectando...</h1>
+<p id="msg"></p>
+<code id="codigo"></code>
+<button id="copiar" hidden>Copiar código</button>
+<script>
+const q = new URLSearchParams(location.search);
+const t = document.getElementById("titulo"), m = document.getElementById("msg"), c = document.getElementById("codigo"), b = document.getElementById("copiar");
+if (q.get("code")) {
+  t.textContent = "Conta do TikTok conectada ao Olinpy";
+  m.textContent = "Copie o código abaixo e cole no terminal da ferramenta Olinpy para concluir. Ele vale por poucos minutos.";
+  c.textContent = q.get("code");
+  b.hidden = false;
+  b.onclick = () => navigator.clipboard.writeText(q.get("code")).then(() => b.textContent = "Copiado!");
+} else {
+  t.textContent = "A conexão não foi concluída";
+  m.textContent = q.get("error_description") || q.get("error") || "Nenhum código recebido.";
+  c.hidden = true;
+}
+</script>
+</main></body></html>
